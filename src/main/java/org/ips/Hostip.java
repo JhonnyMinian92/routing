@@ -30,7 +30,7 @@ public class Hostip {
                     data[2] = (String) dat.get("clave");
                 }
             }
-        } catch (Exception e){ System.out.println(e); }
+        } catch (Exception e){ System.out.println(e.getMessage()); }
         return data;
     }
 
@@ -47,7 +47,7 @@ public class Hostip {
                     .asString();
             responseBody = response.getBody();
         } catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return responseBody;
     }
@@ -56,7 +56,7 @@ public class Hostip {
         String iphost = obtenerIp();
         String gateway = "Error al buscar la ip";
         if(!iphost.equals("")) {
-            gateway = "" + iphost.substring(0, iphost.length() - 1) + "1";
+            gateway = iphost.substring(0, iphost.length() - 1) + "1";
         }
         return gateway;
     }
@@ -75,8 +75,7 @@ public class Hostip {
                         InetAddress addr = addresses.nextElement();
 
                         if (!addr.isLoopbackAddress() && !addr.isLinkLocalAddress() && !addr.isMulticastAddress()) {
-                            String ip = getHostLocal(iface);
-                            return ip;
+                            return getHostLocal(iface);
                         }
                     }
                 }

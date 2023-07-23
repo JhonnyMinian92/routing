@@ -8,7 +8,6 @@ import org.json.simple.parser.JSONParser;
 public class Autenticar {
 
     protected  static int Login(String usuario, String clave){
-        String responseBody = "";
         int id = 0;
         try {
             String apirouter = "http://localhost/ips/autentication/";
@@ -18,7 +17,7 @@ public class Autenticar {
                     .header("Content-Type", "text/plain")
                     .body(datajson)
                     .asString();
-            responseBody = response.getBody();
+            String responseBody = response.getBody();
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(responseBody);
             boolean estado = (boolean) json.get("estado");
@@ -27,7 +26,7 @@ public class Autenticar {
                 id = Integer.parseInt((String) dat.get("iduser"));
             }
         } catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return id;
     }
